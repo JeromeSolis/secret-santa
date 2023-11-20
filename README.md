@@ -9,6 +9,7 @@ The Secret Santa Application is a fun and convenient way to organize a Secret Sa
 - Specify constraints to prevent certain participants from being matched together.
 - Automatically pair participants for the Secret Santa exchange.
 - Send emails to participants with the details of their Secret Santa match.
+- Specify custom email templates for better groups' personalization
 
 ## Getting Started
 
