@@ -53,6 +53,7 @@ python santa.py group1_participants.json
 ```bash
 python santa.py group1_participants.json --template group1_email.json
 ```
+- A log of the matches is saved in the `logs/` folder so that they can be used as constrains for the next Secret Santa. Make sure to not open it to keep the surprise!
 
 ## License
 This project is licensed under the MIT License.

@@ -2,6 +2,7 @@ import argparse
 import random
 import json
 import os
+from datetime import datetime
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
@@ -46,6 +47,23 @@ def create_matches(participants):
 
     return matches
 
+def save_matches_to_log(matches, participant_file, log_dir="logs"):
+    # Ensure the logs directory exists
+    os.makedirs(log_dir, exist_ok=True)
+
+    # Extract base name of participant file
+    base_name = os.path.splitext(os.path.basename(participant_file))[0]
+
+    # Create a log file with timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    log_filename = f"{log_dir}/{base_name}_matches_{timestamp}.json"
+
+    # Write matching results to the log file
+    with open(log_filename, "w") as file:
+        json.dump(matches, file, indent=4)
+
+    print(f"Matches saved to {log_filename}")
+
 # Function to send emails
 def send_emails(matches, participants, email_template):
     participants_dict = {p['name']: p['email'] for p in participants}
@@ -80,6 +98,7 @@ def run_secret_santa_for_group(group_file, template_file):
     email_template = load_email_template(template_file)
     matches = create_matches(participants)
     send_emails(matches, participants, email_template)
+    save_matches_to_log(matches, group_file)
 
 # Run the app
 def main():
