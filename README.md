@@ -51,4 +51,4 @@ python santa.py
 - Email Customization: Modify the `send_emails` function in `santa.py` to customize the email content and subject.
 
 ## License
-This project is licensed under the [MIT License](https://chat.openai.com/c/LICENSE).
+This project is licensed under the MIT License.

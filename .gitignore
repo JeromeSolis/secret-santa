@@ -1,3 +1,6 @@
 # Environment file
 .env
-participants.json
+
+# Participants files
+*.json
+!participants_template.json

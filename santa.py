@@ -1,3 +1,4 @@
+import argparse
 import random
 import json
 import os
@@ -12,8 +13,8 @@ sender_email = os.getenv("EMAIL_ADDRESS")
 password = os.getenv("EMAIL_PASSWORD")
 
 # Load participant data
-def load_participants():
-    with open('participants.json', 'r') as file:
+def load_participants(filename):
+    with open(filename, 'r') as file:
         data = json.load(file)
         return data['participants']
 
@@ -67,11 +68,23 @@ def send_emails(matches, participants):
 
     server.quit()
 
+# 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Run Secret Santa for a specified JSON file.")
+    parser.add_argument("json_file", help="Name of the JSON file with participant data")
+    args = parser.parse_args()
+    return args.json_file
+
 # Main function to run the Secret Santa app
-def run_secret_santa():
-    participants = load_participants()
+def run_secret_santa_for_group(group_file):
+    participants = load_participants(group_file)
     matches = create_matches(participants)
     send_emails(matches, participants)
 
 # Run the app
-run_secret_santa()
+def main():
+    json_file = parse_arguments()
+    run_secret_santa_for_group(json_file)
+
+if __name__ == "__main__":
+    main()
