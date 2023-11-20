@@ -68,7 +68,7 @@ def send_emails(matches, participants):
 
     server.quit()
 
-# 
+# Parse input arguments (group filename)
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Run Secret Santa for a specified JSON file.")
     parser.add_argument("json_file", help="Name of the JSON file with participant data")
