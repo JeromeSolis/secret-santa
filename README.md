@@ -35,7 +35,7 @@ pip install python-dotenv
 1. Rename `.env.template` to `.env`
 2. Edit `.env` file with your email settings
 ```makefile
-EMAIL_ADDRESS=your-email@gmail.com
+EMAIL_ADDRESS=your-email@example.com
 EMAIL_PASSWORD=your-email-password
 ``` 
 3. Fill in the `participants.json` file with the participants' information following the structure in `participants_template.json`.
