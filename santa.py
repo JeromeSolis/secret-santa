@@ -26,14 +26,14 @@ def load_email_template(filename):
 # Function to create matches
 def create_matches(participants):
     names = [p['name'] for p in participants]
-    constraints = {p['name']: p['constraint'] for p in participants}
+    constraints = {p['name']: p.get('constraint', []) for p in participants}
     givers = list(names)
     receivers = list(names)
     matches = {}
 
     while givers:
         giver = random.choice(givers)
-        possible_receivers = [r for r in receivers if r != giver and r != constraints.get(giver, '')]
+        possible_receivers = [r for r in receivers if r != giver and r not in constraints[giver]]
 
         if not possible_receivers:
             # No valid match, restart the process
