@@ -38,17 +38,20 @@ pip install python-dotenv
 EMAIL_ADDRESS=your-email@example.com
 EMAIL_PASSWORD=your-email-password
 ``` 
-3. Fill in the `participants.json` file with the participants' information following the structure in `participants_template.json`.
+3. Fill in a `group1_participants.json` file with the participants' information following the structure in `participants_template.json`.
 
 ### Usage
 Run the application
 ```bash
-python santa.py
+python santa.py group1_participants.json
 ```
 
 ## Configuration
 - Participants: Update the `participants.json` file with participants' names, emails, and any match constraints.
-- Email Customization: Modify the `send_emails` function in `santa.py` to customize the email content and subject.
+- Email Customization: Modify the `email_template.json` to customize the email content and subject and add it as an argument when running the application. 
+```bash
+python santa.py group1_participants.json --template group1_email.json
+```
 
 ## License
 This project is licensed under the MIT License.
