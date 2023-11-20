@@ -15,13 +15,15 @@ password = os.getenv("EMAIL_PASSWORD")
 
 # Load participant data
 def load_participants(filename):
-    with open(filename, 'r') as file:
+    filepath = os.path.join('data', 'participants', filename)
+    with open(filepath, 'r') as file:
         data = json.load(file)
         return data['participants']
 
 # Load email template
 def load_email_template(filename):
-    with open(filename, 'r') as file:
+    filepath = os.path.join('data', 'email_templates', filename)
+    with open(filepath, 'r') as file:
         return json.load(file)
 
 # Function to create matches
@@ -102,6 +104,8 @@ def run_secret_santa_for_group(group_file, template_file):
 
 # Run the app
 def main():
+    # Usage: python script.py group1.json --template group1_email.json
+    # The script will look for 'participants/group1.json' and 'email_templates/group1_email.json'
     json_file, template_file = parse_arguments()
     run_secret_santa_for_group(json_file, template_file)
 
