@@ -105,7 +105,7 @@ def run_secret_santa_for_group(group_file, template_file):
 # Run the app
 def main():
     # Usage: python script.py group1.json --template group1_email.json
-    # The script will look for 'participants/group1.json' and 'email_templates/group1_email.json'
+    # The script will look for 'data/participants/group1.json' and 'data/email_templates/group1_email.json'
     json_file, template_file = parse_arguments()
     run_secret_santa_for_group(json_file, template_file)
 

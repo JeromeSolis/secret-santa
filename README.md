@@ -39,19 +39,19 @@ pip install python-dotenv
 EMAIL_ADDRESS=your-email@example.com
 EMAIL_PASSWORD=your-email-password
 ``` 
-3. Fill in a `group1_participants.json` file with the participants' information following the structure in `participants_template.json`.
+3. Fill in a `data/participants/group1.json` file with the participants' information following the structure in `data/participants/participants_template.json`.
 
 ### Usage
 Run the application
 ```bash
-python santa.py group1_participants.json
+python santa.py group1.json
 ```
 
 ## Configuration
-- Participants: Update the `participants.json` file with participants' names, emails, and any match constraints.
-- Email Customization: Modify the `email_template.json` to customize the email content and subject and add it as an argument when running the application. 
+- Participants: Copy and edit the `data/participants/participants_template.json` file with participants' names, emails, and any match constraints.
+- Email Customization: Modify the `data/email_templates/email_template.json` to customize the email content and subject and add it as an argument when running the application. Default uses `data/email_templates/email_default.json`.
 ```bash
-python santa.py group1_participants.json --template group1_email.json
+python santa.py group1.json --template group1_email.json
 ```
 - A log of the matches is saved in the `logs/` folder so that they can be used as constrains for the next Secret Santa. Make sure to not open it to keep the surprise!
 
