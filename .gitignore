@@ -4,3 +4,5 @@
 # Participants files
 *.json
 !participants_template.json
+!email_template.json
+!email_default.json

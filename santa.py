@@ -18,6 +18,11 @@ def load_participants(filename):
         data = json.load(file)
         return data['participants']
 
+# Load email template
+def load_email_template(filename):
+    with open(filename, 'r') as file:
+        return json.load(file)
+
 # Function to create matches
 def create_matches(participants):
     names = [p['name'] for p in participants]
@@ -42,7 +47,7 @@ def create_matches(participants):
     return matches
 
 # Function to send emails
-def send_emails(matches, participants):
+def send_emails(matches, participants, email_template):
     participants_dict = {p['name']: p['email'] for p in participants}
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
@@ -53,16 +58,9 @@ def send_emails(matches, participants):
         message = MIMEMultipart()
         message["From"] = sender_email
         message["To"] = participants_dict[giver]
-        message["Subject"] = "Ton Père Noël secret !"
+        message["Subject"] = email_template["subject"]
 
-        body = (
-            f"Bonjour {giver},\n\n"
-                "Joyeux Noël ! Nous sommes ravis de t'annoncer que tu es le Père Noël secret de "
-                f"{receiver} cette année ! C'est le moment parfait pour partager la joie et l'esprit de Noël.\n\n"
-                "N'oublie pas de choisir un cadeau spécial qui rendra son Noël inoubliable. 🎄🎁\n\n"
-                "Meilleurs vœux,\n"
-                "J"
-        )
+        body = email_template["body"].format(giver=giver, receiver=receiver)
         message.attach(MIMEText(body, "plain"))
         server.sendmail(sender_email, participants_dict[giver], message.as_string())
 
@@ -72,19 +70,21 @@ def send_emails(matches, participants):
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Run Secret Santa for a specified JSON file.")
     parser.add_argument("json_file", help="Name of the JSON file with participant data")
+    parser.add_argument("--template", default="email_default.json", help="Email template JSON file (optional)")
     args = parser.parse_args()
-    return args.json_file
+    return args.json_file, args.template
 
 # Main function to run the Secret Santa app
-def run_secret_santa_for_group(group_file):
+def run_secret_santa_for_group(group_file, template_file):
     participants = load_participants(group_file)
+    email_template = load_email_template(template_file)
     matches = create_matches(participants)
-    send_emails(matches, participants)
+    send_emails(matches, participants, email_template)
 
 # Run the app
 def main():
-    json_file = parse_arguments()
-    run_secret_santa_for_group(json_file)
+    json_file, template_file = parse_arguments()
+    run_secret_santa_for_group(json_file, template_file)
 
 if __name__ == "__main__":
     main()
