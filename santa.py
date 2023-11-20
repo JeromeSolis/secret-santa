@@ -12,6 +12,9 @@ from email.mime.multipart import MIMEMultipart
 load_dotenv()
 sender_email = os.getenv("EMAIL_ADDRESS")
 password = os.getenv("EMAIL_PASSWORD")
+smtp_server = os.getenv("SMTP_SERVER")
+smtp_port = int(os.getenv("SMTP_PORT", 587)) # Default to 587 if not specified
+use_tls = os.getenv("USE_TLS", "true").lower() == "true" # Default to True if not specified
 
 # Load participant data
 def load_participants(filename):
@@ -70,8 +73,9 @@ def save_matches_to_log(matches, participant_file, log_dir="logs"):
 def send_emails(matches, participants, email_template):
     participants_dict = {p['name']: p['email'] for p in participants}
 
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    if use_tls:
+        server.starttls()
     server.login(sender_email, password)
 
     for giver, receiver in matches.items():

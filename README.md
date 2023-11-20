@@ -38,6 +38,9 @@ pip install python-dotenv
 ```makefile
 EMAIL_ADDRESS=your-email@example.com
 EMAIL_PASSWORD=your-email-password
+SMTP_SERVER=smtp.example.com
+SMTP_PORT=587
+USE_TLS=true
 ``` 
 3. Fill in a `data/participants/group1.json` file with the participants' information following the structure in `data/participants/participants_template.json`.
 
